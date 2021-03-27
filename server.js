@@ -12,14 +12,27 @@ app.get('/', (req, res) => {
     res.send('Hello There!')
 })
 
-app.get('/get-achievement', (req, res) => {
+app.post('/get-achievement', async(req, res) => {
     console.log(rules)
+
+    const facts = {
+        personalFoulCount: req.body.personalFoulCount,
+        gameDuration: req.body.gameDuration
+    }
 
     const engine = new Engine()
 
     engine.addRule(rules)
 
-    res.send('Hello There!')
+    const { events } = await engine.run(facts)
+
+    console.log("events: ", events)
+
+    let results = []
+
+    events.map(event => results.push(event.params.message))
+
+    res.send(results)
 })
 
 app.listen(port, () => {
