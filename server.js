@@ -16,8 +16,7 @@ app.post('/get-achievement', async(req, res) => {
     console.log(rules)
 
     const facts = {
-        personalFoulCount: req.body.personalFoulCount,
-        gameDuration: req.body.gameDuration
+        score: req.body.score,
     }
 
     const engine = new Engine()
